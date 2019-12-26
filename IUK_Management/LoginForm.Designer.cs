@@ -116,6 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.QuitButton);
@@ -126,7 +127,9 @@
             this.Controls.Add(this.UsernameLabel);
             this.Controls.Add(this.LoginLabel);
             this.Name = "LoginMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IUK Management";
+            this.Load += new System.EventHandler(this.LoginMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

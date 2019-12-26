@@ -52,5 +52,25 @@ namespace IUK_Management
                 Application.Exit();
             }
         }
+
+        private void LoginMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = (MessageBox.Show(
+                "Wirklich beenden?",
+                "Beenden",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1) == DialogResult.No);
+
+            base.OnClosing(e);
+            System.Environment.Exit(1);
+        }
+
     }
 }
