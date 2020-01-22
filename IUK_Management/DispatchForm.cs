@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace IUK_Management
 {
@@ -19,7 +20,11 @@ namespace IUK_Management
         {
          InitializeComponent();
         }
-        
+
+        Thread thrdLoadRtw;
+        Thread thrdLoadKtw;
+        Thread thrdLoadNef;
+
         private void BackButton_Click(object sender, EventArgs e)
         {
         
@@ -35,11 +40,20 @@ namespace IUK_Management
         {
             connection.Open();
             dataGridRtw.DataSource = GetRtwList();
+            thrdLoadRtw = new Thread(new ThreadStart(GetRtwList()));
+            //thrdLoadRtw = new Thread(thrdRtwUpdate);
+            //thrdLoadRtw.Start();
             dataGridKtw.DataSource = GetKtwList();
+            thrdLoadKtw = new Thread(new ThreadStart(GetKtwList()));
+            //thrdLoadKtw = new Thread(thrdKtwUpdate);
+            //thrdLoadKtw.Start();
             dataGridNef.DataSource = GetNefList();
+            thrdLoadNef = new Thread(new ThreadStart(GetNefList()));
+            //thrdLoadNef = new Thread(thrdNefUpdate);
+            //thrdLoadNef.Start();
             UpdateLabelText();
         }
-        private DataTable GetRtwList()
+        protected DataTable GetRtwList()
         {
             DataTable dtVehicleR = new DataTable();
             string queryR = "SELECT Funkrufnummer as RTW FROM Fahrzeug WHERE Fahrzeugtyp = 'RTW'";
@@ -50,7 +64,7 @@ namespace IUK_Management
             return dtVehicleR;
         }
 
-        private DataTable GetKtwList()
+        protected DataTable GetKtwList()
         {
             DataTable dtVehicleK = new DataTable();
             string queryK = "SELECT Funkrufnummer as KTW FROM Fahrzeug WHERE Fahrzeugtyp = 'KTW'";
@@ -61,7 +75,7 @@ namespace IUK_Management
             return dtVehicleK;
         }
 
-        private DataTable GetNefList()
+        protected DataTable GetNefList()
         {
             DataTable dtVehicleN = new DataTable();
             string queryN = "SELECT Funkrufnummer as NEF FROM Fahrzeug WHERE Fahrzeugtyp = 'NEF'";
@@ -103,6 +117,20 @@ namespace IUK_Management
             System.Environment.Exit(1);
         }
 
+        public void thrdRtwUpdate()
+        {
+           
+        }
+
+        public void thrdKtwUpdate()
+        {
+           
+        }
+
+        public void thrdNefUpdate()
+        {
+     
+        }
 
 
         private void Label4_Click(object sender, EventArgs e)
