@@ -39,6 +39,7 @@
             this.kCount = new System.Windows.Forms.Label();
             this.nCount = new System.Windows.Forms.Label();
             this.rCount = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRtw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridKtw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNef)).BeginInit();
@@ -156,6 +157,16 @@
             this.rCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.rCount.Click += new System.EventHandler(this.Label4_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(361, 469);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Reload";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // DispatchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,6 +174,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(841, 504);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.rCount);
             this.Controls.Add(this.nCount);
             this.Controls.Add(this.kCount);
@@ -193,5 +205,6 @@
         private System.Windows.Forms.Label kCount;
         private System.Windows.Forms.Label nCount;
         private System.Windows.Forms.Label rCount;
+        private System.Windows.Forms.Button button1;
     }
 }

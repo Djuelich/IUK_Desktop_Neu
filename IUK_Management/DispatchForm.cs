@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace IUK_Management
 {
@@ -18,6 +19,7 @@ namespace IUK_Management
         public DispatchForm()
         {
          InitializeComponent();
+         
         }
         
         private void BackButton_Click(object sender, EventArgs e)
@@ -33,11 +35,7 @@ namespace IUK_Management
 
         private void DispatchForm_Load(object sender, EventArgs e)
         {
-            connection.Open();
-            dataGridRtw.DataSource = GetRtwList();
-            dataGridKtw.DataSource = GetKtwList();
-            dataGridNef.DataSource = GetNefList();
-            UpdateLabelText();
+           DbRefresh();
         }
         private DataTable GetRtwList()
         {
@@ -108,6 +106,27 @@ namespace IUK_Management
         private void Label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            LoadDb();
+            UpdateLabelText();
+        }
+
+        private void DbRefresh()
+        {
+            LoadDb();
+            UpdateLabelText();          
+        }
+
+        private void LoadDb()
+        {
+            connection.Open();
+            dataGridRtw.DataSource = GetRtwList();
+            dataGridKtw.DataSource = GetKtwList();
+            dataGridNef.DataSource = GetNefList();
+            connection.Close();
         }
     }
 }
