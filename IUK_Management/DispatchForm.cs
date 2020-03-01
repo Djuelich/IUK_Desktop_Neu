@@ -10,23 +10,19 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using System.Threading;
+using Timer = System.Windows.Forms.Timer;
 
 namespace IUK_Management
 {
     public partial class DispatchForm : Form
     {
+
         MySqlConnection connection = new MySqlConnection("server=www.db4free.net;database=iukmanagement;uid=elwseg;password=Scarred_92;OldGuids=true");
         public DispatchForm()
         {
-         InitializeComponent();
-         
+            InitializeComponent();
         }
         
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-        
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
            
@@ -35,7 +31,11 @@ namespace IUK_Management
 
         private void DispatchForm_Load(object sender, EventArgs e)
         {
-           DbRefresh();
+            DbRefresh();
+            Timer timer = new Timer();
+            timer.Interval = (1 * 1000); // 10 secs
+            timer.Tick += new EventHandler(timer1_Tick);
+            timer.Start();
         }
         private DataTable GetRtwList()
         {
@@ -86,23 +86,12 @@ namespace IUK_Management
             kCount.Text = "KTW: " + (kCounter-1);
             nCount.Text = "NEF: " + (nCounter-1);
 
+            System.Diagnostics.Debug.WriteLine("Load2");
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = (MessageBox.Show(
-                "Wirklich beenden?",
-                "Beenden",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button1) == DialogResult.No);
+        
 
-            base.OnClosing(e);
-            System.Environment.Exit(1);
-        }
-
-
-
+       
         private void Label4_Click(object sender, EventArgs e)
         {
 
@@ -110,8 +99,7 @@ namespace IUK_Management
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            LoadDb();
-            UpdateLabelText();
+            DbRefresh();
         }
 
         private void DbRefresh()
@@ -127,6 +115,34 @@ namespace IUK_Management
             dataGridKtw.DataSource = GetKtwList();
             dataGridNef.DataSource = GetNefList();
             connection.Close();
+            System.Diagnostics.Debug.WriteLine("Load");
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //do whatever you want 
+            DbRefresh();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Beenden ?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Application.Exit();
+            }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = (MessageBox.Show(
+                "Wirklich beenden?",
+                "Beenden",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1) == DialogResult.No);
+
+            base.OnClosing(e);
+            System.Environment.Exit(1);
         }
     }
 }

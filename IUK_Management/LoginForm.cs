@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 
 namespace IUK_Management
 {
+ 
     public partial class LoginMenu : Form
     {
         public LoginMenu()
@@ -35,7 +36,8 @@ namespace IUK_Management
                     Form dispatch = new DispatchForm();
                     this.Hide();
                     connection.Close();
-                    dispatch.Show();
+                    dispatch.ShowDialog();
+                    this.Show();
 
                 }
                 catch (MySqlException)
